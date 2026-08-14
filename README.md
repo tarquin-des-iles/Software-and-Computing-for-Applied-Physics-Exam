@@ -23,9 +23,23 @@ This project cannot be considered strictly as “applied physics.” Nevertheles
 
 ## Types of data
 
-All the pollinical data will be furnished in Excel files. It will represent the basis of my work. For the tests, I will generate test files that are not effective scientific work. However, at the end of the project, I will use new scientific data to effectively test my work, and compare it to the data
+All the pollinical data will be furnished in Excel files. It will represent the basis of my work. For the tests, I will generate test files that are not effective scientific work. However, at the end of the project, I will use new scientific data to effectively test my work, and compare it to the data. 
+
+ATTENTION : Only a specific type of excel files can be treated, as we can see in the following image : 
+
+![config](./excel/Type_excel.png)
+
+The file must simply include : 
+
+- GREEN : the first line corresponds to the depth of the samples
+- RED : the first column must contain the names of the species studied
+- BLUE : for the other cells, the number represents the quantity of pollen grains found for each specie at the specified layer 
 
 ## Pollinic diagrams and Rate of Change (RoC)
+
+### Pollinic diagrams 
+
+### Rate of Change graphics
 
 
 
@@ -43,5 +57,5 @@ Files :
 
 - In the file [plots](...Link...), we will find the code for the ploting of Pollinic and RoC diagrams.
 
-
+## Some results
 
