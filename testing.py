@@ -7,27 +7,52 @@ Description : Pollinic diagrams
 
 import pandas as pd
 import numpy as np
+import pathlib as Path
 
-## Write the testing code, importing the excel files
+### Organization of the file 
 
-# Example 1
+## 1. Functions of extraction from EXCEL 
+## 2. Function of test 
 
-data_1 = pd.read_excel("./excel/Test_1_pollen.xlsx", header = None)
-print("The excel file treated by pandas of the Test_1 is : ", data_1)
-print()
+## 1. Functions of extraction from EXCEL
 
+def extract(file_path):
+    """
+    Use Pandas library to extract the excel file to generate
+    a Data Frame, excluding the header structure beacause useless
 
-# Example 2
+    Parameter : 
+        file_path : path to the excel file
+    
+    Return : 
+        A Pandas Data Frame
 
-# data_2 = 
+    Raise : 
+        TypeError if the file_path is not a string
+        AssertionError if the file do not lead to a Excel file 
 
-# Example 3
+    """
+    # Testing the type
+    if type(file_path) != str :
+        raise TypeError("The path is not a string")
 
-# data_3 = 
+    # Test the existence and pertinence of the path
+    path = Path(file_path)
+    assert path.exists(), "No such path"
+    assert path.is_file(), "No file at the end of the path"
+    assert path.suffix.lower() in [".xlsx", ".xls"], "The extension do not seem to be the one of an Excel file"
 
-# Effective data 
+    # Testing if we effectively have a Excel file
+    try : 
+        pd.ExcelFile(path)
+    except Exception as e:
+        raise AssertionError("The dpcument is not a valid Excel file") from e
 
-# data_eff = 
+    # If everything is fine, extract the excel file with pandas and print the Data Frame
+    data = pd.read_excel(file_path, header = None)
+    print("The excel file treated by pandas is : ", data_1)
+    print()
+    return data
 
 ## Appropriate storage of the information
 
@@ -38,24 +63,67 @@ print()
 
 # For the depth, we select the first line, we transform each value in an integer and exclude the NaN type due to the first empty cell.
 
-depth_1 = np.array(data_1.iloc[0])
-depth_1 = depth_1[1:].astype(int)
-n_depth_1 = len(depth_1)
-print("For the data Test_1, we obtain the following depth array : ", depth_1)
-print()
+def gen_data(data_frame): 
+    """
+        Generate an appropriate dictionnary including for keys the plant names and as values the quantity
+        of pollen found for each layer, and an array of the layer lengths 
+    
+        Parameter : 
+            data : Pandas Data Frame
+        
+        Return : 
+            A dictionnary and a numpy array
+    
+        Raise : 
+           TypeError if data is not a Data Frame
+           TypeError if the first line is not composed 
+    """
+    # Testing if the argument is a Data Frame
+    assert isinstance(data_frame, pd.DataFrame), "The object is not a Data Frame. Check gen_dict argument."
 
-# To generate the dictionnary, we need to isolate the first column with the taxa names, which will become the keys and associate to each key the 
-# rest of the line 
+    # Generating the numpy array of layer lengths : we take the first line and convert into a numpy array 
+    depth = np.array(data_frame.iloc[0])
+    depth = depth[1:].astype(float)
+    n_depth = len(depth)
+    print("For the data Test_1, we obtain the following depth array : ", depth)
+    print(r"It contains {n_depth} layers.")
+    print()
 
-keys_1 = np.array(data_1[0])[1:]
-n_keys_1 = len(keys_1)
-print("The taxa studied in Test_1 are the following :", keys_1)
-print()
+    # Generating the dictionnary : we isolate the first column with the taxa names, that will correspond to the 
+    # keys of the dict, we verify that they are all strings and we generate all the arrays corresponding to every 
+    # sampling in our core. 
 
-values_1 = [np.array(data_1.iloc[i])[1:].astype(int) for i in range(1,n_keys_1) ]
+    # Keys
+    keys = np.array(data_frame[0])[1:]
+    assert np.all(keys == keys.astype(str)), "The column of the taxas names is not fully composed of names. Check it values."
+    n_keys = len(keys)
+    print("The taxa studied in Test_1 are the following :", keys)
+    print()
 
-dict_1 = dict(zip(keys_1, values_1))
-print(dict_1)
+    # Values 
+    values = [np.array(data_1.iloc[i])[1:].astype(int) for i in range(1,n_keys) ]
+
+    # Generating the dictionnary 
+    dict = dict(zip(keys, values))
+    print("We obtain the following dictionnary for Test_1 data : ", dict)
+    print()
+
+
+
+## Possible tests 
+
+# Example 1
+data_1 = pd.read_excel("./excel/Test_1_pollen.xlsx", header = None)
+
+# Example 2
+# data_2 = 
+
+# Example 3
+# data_3 = 
+
+# Effective data 
+# data_eff = 
+
 
 
 
