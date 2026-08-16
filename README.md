@@ -23,6 +23,7 @@ This project cannot be considered strictly as “applied physics.” Nevertheles
 
 ## Types of data
 
+### Exact format
 All the pollinical data will be furnished in Excel files. It will represent the basis of my work. For the tests, I will generate test files that are not effective scientific work. However, at the end of the project, I will use new scientific data to effectively test my work, and compare it to the data. 
 
 ATTENTION : Only a specific type of excel files can be treated, as we can see in the following image : 
@@ -35,9 +36,17 @@ The file must simply include :
 - RED : the first column must contain the names of the species studied
 - BLUE : for the other cells, the number represents the quantity of pollen grains found for each specie at the specified layer 
 
+### Why such a format ? 
+
+When measurements are done at the microscope, the idea is to identify with precision the taxa of the pollen observed and to simply count them. Therefore, this format of excel file is the rawest data you can obtain from such an experiment. 
+
 ## Pollinic diagrams and Rate of Change (RoC)
 
 ### Pollinic diagrams 
+
+Pollinic diagrams are the graphical representation of the abundance of taxa at every depth of a sedimentary core. It is composed of two axis : 
+- Axis 1 : Depth of the layer 
+- Axis 2 : Percentage of pollen in this layer for the corresponding taxa with respect to the total quantity of pollen
 
 ### Rate of Change graphics
 
@@ -48,6 +57,8 @@ The file must simply include :
 Files : 
 
 - In the folder [excel](...Link...), will be compiled all the excell files we used to test the code. Moreover, there will be 
+
+- In the file [opening](...Link...) are compiled the functions of basic treatment for the excel files, meaning : generating the Data Frames and the Python dictionnaries that we will use to generate the graphics. 
 
 - In the file [pollinic](...Link...), we will find the functions that extract excell data and rearrange it in an useful way to perform Python plot and analysis.
 
