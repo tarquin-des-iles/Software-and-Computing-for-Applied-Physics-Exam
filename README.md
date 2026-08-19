@@ -59,6 +59,7 @@ Files :
 - In the folder [excel](...Link...), will be compiled all the excell files we used to test the code. Moreover, there will be 
 
 - In the file [opening](...Link...) are compiled the functions of basic treatment for the excel files, meaning : generating the Data Frames and the Python dictionnaries that we will use to generate the graphics. 
+More precisely, we want to store the data in the following manner : for each excel we obtain a dictionnary, of which the keys are the taxa and for each taxa corresponds a list of integers. For each dictionnary, we link another list (depth) from which the cells correspond to the depth of the layers where the pollen is found. Thus, the values of the dictionnaries and the depth-list are both arrays of same size.  
 
 - In the file [pollinic](...Link...), we will find the functions that extract excell data and rearrange it in an useful way to perform Python plot and analysis.
 

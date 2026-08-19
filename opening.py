@@ -7,7 +7,7 @@ Description : Pollinic diagrams
 
 import pandas as pd
 import numpy as np
-import pathlib as Path
+from pathlib import Path
 
 def extract(file_path):
     """
@@ -39,20 +39,14 @@ def extract(file_path):
     try : 
         pd.ExcelFile(path)
     except Exception as e:
-        raise AssertionError("The dpcument is not a valid Excel file") from e
+        raise AssertionError("The document is not a valid Excel file") from e
 
     # If everything is fine, extract the excel file with pandas and print the Data Frame
     data = pd.read_excel(file_path, header = None)
-    print("The excel file treated by pandas is : ", data_1)
+    print("The excel file treated by pandas is : ")
+    print(data)
     print()
     return data
-
-## Appropriate storage of the information
-
-# We want to store the data in the following manner : for each excel we obtain a dictionnary, of which the keys are
-# the taxa and for each taxa corresponds a list of integers. For each dictionnary, we link another list (depth)
-# from which the cells correspond to the depth of the pollen found. Thus, the values and the depth-list are both arrays of same 
-# size. 
 
 # For the depth, we select the first line, we transform each value in an integer and exclude the NaN type due to the first empty cell.
 
@@ -69,17 +63,17 @@ def gen_data(data_frame):
     
         Raise : 
            TypeError if data is not a Data Frame
-           TypeError if the first line is not composed 
+           TypeError if the first line is not composed of floating or integer object
     """
     # Testing if the argument is a Data Frame
-    assert isinstance(data_frame, pd.DataFrame), "The object is not a Data Frame. Check gen_dict argument."
+    assert isinstance(data_frame, pd.DataFrame), f"{data_frame} is not a Data Frame. Check gen_data argument."
 
     # Generating the numpy array of layer lengths : we take the first line and convert into a numpy array 
     depth = np.array(data_frame.iloc[0])
     depth = depth[1:].astype(float)
     n_depth = len(depth)
     print("For the data Test_1, we obtain the following depth array : ", depth)
-    print(r"It contains {n_depth} layers.")
+    print(f"It contains {n_depth} layers.")
     print()
 
     # Generating the dictionnary : we isolate the first column with the taxa names, that will correspond to the 
@@ -93,12 +87,13 @@ def gen_data(data_frame):
     print("The taxa studied in Test_1 are the following :", keys)
     print()
 
-    # Values 
-    values = [np.array(data_1.iloc[i])[1:].astype(int) for i in range(1,n_keys) ]
+    # Values : we go on all the line of the Data Frame, excluding the name and converting the NaN data into 0
+    values = [data_frame.iloc[i][1:].fillna(0).astype(float).to_numpy() for i in range(1, n_keys)]
 
     # Generating the dictionnary 
-    dict = dict(zip(keys, values))
-    print("We obtain the following dictionnary for Test_1 data : ", dict)
+    dictio = {}
+    dictio = dict(zip(keys, values))
+    print("We obtain the following dictionnary for Test_1 data : ", dictio)
     print()
 
-    return dict
+    return dictio, depth
