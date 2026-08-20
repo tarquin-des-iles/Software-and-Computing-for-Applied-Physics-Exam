@@ -1,0 +1,10 @@
+[page_settings]
+
+PAGE_WIDTH = 10
+PAGE_HEIGHT = 8
+
+[graph_settings]
+
+MAX_GRAPH_WIDTH = 5
+MIN_GRAPH_WIDTH = 0.8
+MARGIN = 0.2

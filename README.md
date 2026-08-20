@@ -71,3 +71,14 @@ More precisely, we want to store the data in the following manner : for each exc
 
 ## Some results
 
+### Pollinic diagrams 
+
+For the pollinic diagrams, we obtain the following data, based on a real pollen sampling in the Thau lagoon, France :
+
+- Here is a part of the grpahics generated : we can see that we obtain a high variability on the presence of diverse pollen taxa, that we can compare the abundance and deduce environmental influencing factors such as climate abrupt changing, human presence...
+![config](./workspaces/Software-and-Computing-for-Applied-Physics-Exam/example_pollinic_diag.png)
+
+- Here is a focus on two the specific cases : Pinus's presence is deeply link to the presence of human agglomeration. Oftenly, it inrease is a good marker of soil artifizialition. Instead, in the case of the Thau Lagoon, the decreasing presence of Vitus pollen is linked to the changement of economy in the region during the second half of the XXth century : 
+
+
+
