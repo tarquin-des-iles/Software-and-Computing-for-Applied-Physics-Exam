@@ -93,7 +93,5 @@ def gen_data(data_frame):
     # Generating the dictionnary 
     dictio = {}
     dictio = dict(zip(keys, values))
-    print("We obtain the following dictionnary for Test_1 data : ", dictio)
-    print()
 
     return dictio, depth
