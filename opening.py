@@ -11,11 +11,10 @@ from pathlib import Path
 
 def extract(file_path):
     """
-    Use Pandas library to extract the excel file to generate
-    a Data Frame, excluding the header structure beacause useless
+    Use Pandas library to extract the excel file to generate a Data Frame, excluding the header because useless
 
     Parameter : 
-        file_path : path to the excel file
+        file_path(str) : path to the excel file
     
     Return : 
         A Pandas Data Frame
@@ -23,7 +22,6 @@ def extract(file_path):
     Raise : 
         TypeError if the file_path is not a string
         AssertionError if the file do not lead to a Excel file 
-
     """
     # Testing the type
     if type(file_path) != str :
@@ -56,7 +54,7 @@ def gen_data(data_frame):
         of pollen found for each layer, and an array of the layer lengths 
     
         Parameter : 
-            data : Pandas Data Frame
+            data(Pandas Data Frame) : Pandas Data Frame of the pollinic data
         
         Return : 
             A dictionnary and a numpy array

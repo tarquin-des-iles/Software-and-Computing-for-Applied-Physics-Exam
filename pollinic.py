@@ -15,7 +15,8 @@ def percentage(pollen_dict, core_length):
         grains found
     
         Parameter : 
-            pollen_dict : Data Frame of pollen excel file converted into a dictionnary 
+            pollen_dict (dict): Data Frame of pollen excel file converted into a dictionnary 
+            core_length (np.ndarray): Depth array containing the depth of each layer. 
         
         Return : 
             A dictionnary
@@ -57,9 +58,23 @@ def percentage(pollen_dict, core_length):
 # some taxa are found a lot and others are really rare. The consequence is that for the first the x limit is reasonnable 
 # but for the second it lets too much empty spaces. 
 
-# To fix this problem, we introduce a function of adjustment of the size of every graphic. 
+# To fix this problem, we introduce a . 
 
 def graph_width(values, global_max, MIN_GRAPH_WIDTH, MAX_GRAPH_WIDTH, MARGIN):
+    """
+        Function of adjustment of the size of every graphic
+    
+        Parameters:
+            values (Numpy Array): percentage numpy array indexed in the dictionnary. 
+            global_max (float): maximum percentage found in all values of the dictionnary
+            MIN_GRAPH_WIDTH (float): user's choosen value for the minimum graph width in configuration.txt
+            MAX_GRAPH_WIDTH (float): user's choosen value for the maximum graph width in configuration.txt
+            MARGIN (float): user's choosen value for the margin in each graph width in configuration.txt
+    
+        Returns:
+            The optimized size for each graph width with a certain margin.
+        """
+    
     max_value = max(values)
     # Width scale corresponding to the maximum 
     width = (max_value / global_max) * MAX_GRAPH_WIDTH
@@ -79,23 +94,21 @@ def single_pollinic_diag(pollen_dict_percent, core_length, config):
 
     Returns:
         None. Displays one matplotlib figure for each taxon.
+    
+    Raises:
+        TypeErrors : verifies if pollen_dict_percent is a dictionnary and if core_length a Numpy array
+        ValueError : verifies if each values of the dictionnary is in the right size. 
     """
 
     if not isinstance(pollen_dict_percent, dict):
-        raise TypeError(
-            "You must insert the Data Frame dictionary as first argument"
-        )
+        raise TypeError("You must insert the Data Frame dictionary as first argument")
 
     if not isinstance(core_length, np.ndarray):
-        raise TypeError(
-            "You must insert the depth array as second argument"
-        )
+        raise TypeError("You must insert the depth array as second argument")
 
     for taxa in pollen_dict_percent:
         if len(pollen_dict_percent[taxa]) != len(core_length):
-            raise ValueError(
-                f"The number of values for {taxa} does not match core_length"
-            )
+            raise ValueError(f"The number of values for {taxa} does not match core_length")
 
     # Figure parameters
     PAGE_WIDTH = config[0]
@@ -112,7 +125,7 @@ def single_pollinic_diag(pollen_dict_percent, core_length, config):
         ax.plot(values, core_length)
         ax.fill_betweenx(core_length, 0, values, alpha=0.3)
         
-        # Red lines at each sampling depth
+        # Red lines at each sampling depth for a better sequencing sequencing
         for depth in core_length:
             ax.axhline(y=depth, color="red", linewidth=0.8, alpha=0.4)
 
@@ -141,10 +154,10 @@ def general_pollinic_diag(pollen_dict_percent, core_length, config):
         config (Numpy array) : the dimension of the page and the graphics
 
     Returns:
-        A series of matplotlib figures.
+        None. Displays a series of matplotlib figures.
 
     Raises:
-        TypeError if pollen_dict_percent is not a dictionary orcore_length is not a numpy array.
+        TypeError if pollen_dict_percent is not a dictionary or core_length is not a numpy array.
         ValueError if the length of the data for a taxa does not match core_length.
     """
 
